@@ -1,6 +1,6 @@
 'use strict'
 
-const models  = require('../../models/db');
+const models = require('../../models/db');
 
 exports.allBooks = (req, res) => {
   models.Book.findAll()
@@ -18,13 +18,15 @@ exports.saveUserBook = (req, res) => {
   let userId = req.body.userId;
 
   models.Book.findById(bookId).then((book) => {
-    book.addReader(userId);
-  })
-  .then(() => {
-    res.json({success: 'Success, book added for User!'});
-  })
-  .catch(error => {
-    console.log(error);
-    res.status(404).send(error);
-  })
+      book.addReader(userId);
+    })
+    .then(() => {
+      res.json({
+        success: 'Success, book added for User!'
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(404).send(error);
+    })
 }
